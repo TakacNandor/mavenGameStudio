@@ -14,10 +14,10 @@ import GameStudio.score.HallOfFameHibernate;
 import GameStudio.score.HallOfFameORM;
 import GameStudio.score.UserScore;
 
-public class GameField extends DBConnection {
+public class GameField  {
 
-	private final int size;
-	private final int[][] tiles;
+	private int size;
+	private int[][] tiles;
 	boolean playing = true;
 	private long startMillis;
 	private HallOfFameHibernate hall;
@@ -32,13 +32,16 @@ public class GameField extends DBConnection {
 		startMillis = System.currentTimeMillis();
 
 		//hall = new HallOfFameORM(getDBConnection());
-		hall=new HallOfFameHibernate();
+		//hall=new HallOfFameHibernate();
 	}
-
+	
+	public void setHall(HallOfFameHibernate hall) {
+		this.hall = hall;
+	}
+	
 	public void play() throws Exception {
 		generate();
 		 findNullPosition();
-		// System.out.println(getPositionOfNull()[0]+" "+ getPositionOfNull()[1]);
 		while (playing) {
 			showGameField();
 			makeMove();
@@ -115,9 +118,9 @@ public class GameField extends DBConnection {
 			System.out.println("Name: "+System.getProperty("user.name"));
 			System.out.println("Time: "+getPlayingSeconds());
 			//UserScore score = new UserScore( System.getProperty("user.name"), getPlayingSeconds(), "Stones");
-			hall.loadScore(System.getProperty("user.name"), getPlayingSeconds(), "Stones");
-			//hall.addScore(System.getProperty("user.name"), getPlayingSeconds(), "Stones");
-			//hall.saveScore(System.getProperty("user.name"), getPlayingSeconds(), "Stones");
+			hall.addScore(System.getProperty("user.name"), getPlayingSeconds());
+			System.out.println(hall);
+			
 		}
 	}
 

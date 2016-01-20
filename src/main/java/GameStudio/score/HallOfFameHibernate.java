@@ -1,5 +1,6 @@
 package GameStudio.score;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,28 +14,59 @@ import org.springframework.transaction.annotation.Transactional;
 import GameStudio.Stones.core.GameField;
 
 @Component
-public class HallOfFameHibernate extends HallOfFame{
+public class HallOfFameHibernate{
 
-			
+	private String game;
 	
-	private EntityManager entityManager;
 	
-	@Transactional
-	@Override
-	public void addScore(String name, int time, String game) throws Exception{
-		entityManager.persist(new UserScore(name,time, game));
-	} 
-	
-	public EntityManager getEntityManager() {
-		return entityManager;
+	public HallOfFameHibernate() {
+		
 	}
+
+	public HallOfFameHibernate(String game) {
+		
+		this.game = game;
+	}
+
 	
+
 	@PersistenceContext
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	private EntityManager entityManager;
+
+	@Transactional
+	public void addScore(String name, int time) throws Exception {
+		entityManager.persist(new UserScore(name, time, game));
 	}
 
-	public List<UserScore> loadScore(String name, int time, String game) throws Exception{
-		return entityManager.createQuery("select s from userscore", UserScore.class).getResultList();
+	public List<UserScore> loadScore() throws Exception {
+		return entityManager.createQuery("select s from UserScore s where name like :name", UserScore.class).setParameter("name", "P350%").getResultList();
+	}
+	
+	public String getGame() {
+		return game;
+	}
+
+	public void setGame(String game) {
+		this.game = game;
+	}
+
+
+	public String toString() {
+		List<UserScore> scores;
+		try {
+			scores = loadScore();
+		} catch (Exception e) {
+			scores = new ArrayList<>();
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		int index = 1;
+		for (UserScore score : scores) {
+			sb.append(index + ". " + score.getName() + " " + score.getTime() +" " +score.getGame()+ "\n");
+			index++;
+		}
+		return sb.toString();
 	} 
+
+
 }

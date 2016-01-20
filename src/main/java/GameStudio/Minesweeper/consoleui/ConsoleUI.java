@@ -11,11 +11,14 @@ import GameStudio.Minesweeper.core.Field;
 import GameStudio.Minesweeper.core.GameState;
 import GameStudio.Minesweeper.core.Tile;
 import GameStudio.score.HallOfFame;
+import GameStudio.score.HallOfFameHibernate;
 
 public class ConsoleUI {
 	private Field field;
+	private HallOfFameHibernate hall;
 	
 	
+
 	private HallOfFame hallOfFame = new HallOfFame();
 	
 	private static final Pattern INPUT_PATTERN = Pattern.compile("([O|M])([A-I])([0-8])");	
@@ -24,7 +27,7 @@ public class ConsoleUI {
 		this.field = field;
 	}
 
-	public void play() throws SQLException {
+	public void play() throws Exception {
 		show();
 		while(field.getState() == GameState.PLAYING) {
 			processInput();
@@ -36,11 +39,13 @@ public class ConsoleUI {
 			String name = System.getProperty("user.name");
 			
 			//hallOfFame.addScore(name, field.getPlayingSeconds());
-			hallOfFame.saveScore(name, field.getPlayingSeconds(), "Minesweeper");
-			hallOfFame.loadScore();
+			//hallOfFame.saveScore(name, field.getPlayingSeconds(), "Minesweeper");
+			//hallOfFame.loadScore();
 			
 			System.out.println("Vyhral si!");
-			System.out.println(hallOfFame);
+			hall.addScore(name, field.getPlayingSeconds());
+			//System.out.println(hall.loadScore());
+			System.out.println(hall);
 		} else {
 			System.out.println("Prehral si!");
 		}
@@ -110,5 +115,10 @@ public class ConsoleUI {
 			System.out.print(" "+ column);
 		}
 		System.out.println();
+	}
+	
+	
+	public void setHall(HallOfFameHibernate hall) {
+		this.hall = hall;
 	}
 }

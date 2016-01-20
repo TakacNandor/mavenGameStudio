@@ -1,4 +1,4 @@
-package GameStudio.Stones.Main;
+package GameStudio.Main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +16,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import com.mysql.jdbc.Field;
 
+import GameStudio.Minesweeper.consoleui.ConsoleUI;
 import GameStudio.Stones.core.GameField;
 import GameStudio.score.DBConnection;
 import GameStudio.score.HallOfFameORM;
@@ -31,13 +32,13 @@ public class Main extends DBConnection {
 	public static void main(String[] args) throws BeansException, Exception {
 
 
-		ApplicationContext context = new
-		ClassPathXmlApplicationContext("spring-context.xml");
+		//ApplicationContext context = new lassPathXmlApplicationContext("spring-context.xml");
 		
-		context.getBean(GameField.class).play();
+		new Studio().play();
 		
-		//GameField gameField = new GameField(4);
-		//gameField.play();
+		//context.getBean(GameField.class).play();
+		//context.getBean(ConsoleUI.class).play();
+		
 		
 		
 

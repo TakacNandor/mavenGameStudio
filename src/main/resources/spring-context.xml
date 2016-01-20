@@ -19,12 +19,35 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<bean id="GameField" class="GameStudio.Stones.core.GameField">
-		<constructor-arg value="3" />
 
+
+	<bean id="minesField" class="GameStudio.Minesweeper.core.Field">
+		<constructor-arg type="int" value="9" />
+		<constructor-arg type="int" value="9" />
+		<constructor-arg type="int" value="1" />
+	</bean>
+
+	<bean id="minesConsole" class="GameStudio.Minesweeper.consoleui.ConsoleUI">
+		<constructor-arg ref="minesField" />
+		<property name="hall" ref="hallOfFameMines" />
+
+	</bean>
+
+	<bean id="hallOfFameMines" class="GameStudio.score.HallOfFameHibernate">
+		<constructor-arg value="Mines" />
+	</bean>
+	<bean id="hallOfFameStones" class="GameStudio.score.HallOfFameHibernate">
+		<constructor-arg value="Stones" />
+	</bean>
+
+
+
+	<bean id="GameField" class="GameStudio.Stones.core.GameField"
+		autowire="byType">
+		<constructor-arg value="3" />
+		<property name="hall" ref="hallOfFameStones" />
 	</bean>
 
 </beans>
