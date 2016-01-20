@@ -50,7 +50,8 @@ public class HallOfFameHibernate{
 		if (ratings.size()==0) {
 			entityManager.persist(rating);
 		}else{
-			ratings.get(0).setRating());
+			//tu som skoncil
+			ratings.get(0).setName("Vojto");
 		}
 		
 		
