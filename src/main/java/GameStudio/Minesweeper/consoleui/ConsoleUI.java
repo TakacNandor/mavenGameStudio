@@ -45,7 +45,7 @@ public class ConsoleUI {
 			System.out.println("Vyhral si!");
 			hall.addScore(name, field.getPlayingSeconds());
 			//System.out.println(hall.loadScore());
-			System.out.println(hall);
+			hall.addRating();
 		} else {
 			System.out.println("Prehral si!");
 		}

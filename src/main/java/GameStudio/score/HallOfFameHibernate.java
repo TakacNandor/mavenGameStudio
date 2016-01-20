@@ -41,6 +41,20 @@ public class HallOfFameHibernate{
 	public List<UserScore> loadScore() throws Exception {
 		return entityManager.createQuery("select s from UserScore s where name like :name", UserScore.class).setParameter("name", "P350%").getResultList();
 	}
+		
+	@Transactional
+	public void addRating() throws Exception {
+		Rating rating = new Rating();
+		rating.rateGame(game);
+		List<Rating> ratings = entityManager.createQuery("select r from Rating r where game=:game and name = :name").setParameter("game", game).setParameter("name",rating.getName()).getResultList();
+		if (ratings.size()==0) {
+			entityManager.persist(rating);
+		}else{
+			ratings.get(0).setRating());
+		}
+		
+		
+	}
 	
 	public String getGame() {
 		return game;

@@ -119,7 +119,8 @@ public class GameField  {
 			System.out.println("Time: "+getPlayingSeconds());
 			//UserScore score = new UserScore( System.getProperty("user.name"), getPlayingSeconds(), "Stones");
 			hall.addScore(System.getProperty("user.name"), getPlayingSeconds());
-			System.out.println(hall);
+			hall.addRating();
+			//System.out.println(hall);
 			
 		}
 	}

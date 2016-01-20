@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import GameStudio.Minesweeper.consoleui.ConsoleUI;
 import GameStudio.Minesweeper.core.Field;
 import GameStudio.Stones.core.GameField;
+import GameStudio.score.Rating;
 
 public class Studio {
 	ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
@@ -25,7 +26,7 @@ public class Studio {
 			context.getBean(GameField.class).play();
 			break;
 		case 3:
-			
+			System.exit(0);
 	break;
 
 		default:

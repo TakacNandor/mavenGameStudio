@@ -49,5 +49,11 @@
 		<constructor-arg value="3" />
 		<property name="hall" ref="hallOfFameStones" />
 	</bean>
+	
+	
+	<bean id="rating" class="GameStudio.score.Rating"
+		autowire="byType">
+	</bean>
+	
 
 </beans>
