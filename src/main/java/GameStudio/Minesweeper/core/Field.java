@@ -3,23 +3,23 @@ package GameStudio.Minesweeper.core;
 import java.util.Random;
 
 public class Field {
-	private final int rowCount;
-	private final int columnCount;
-	private final int mineCount;
+	private int rowCount;
+	private int columnCount;
+	private int mineCount;
 	private final Tile[][] tiles;
 	private GameState state = GameState.PLAYING;
-	private int openCount = 0; 
+	private int openCount = 0;
 	private long startMillis;
 
 	public Field(int rowCount, int columnCount, int mineCount) {
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
 		this.mineCount = mineCount;
-		
-		if(!(rowCount > 0 && columnCount > 0 && mineCount < rowCount * columnCount)) {
+
+		if (!(rowCount > 0 && columnCount > 0 && mineCount < rowCount * columnCount)) {
 			throw new IllegalArgumentException("Cele zle");
 		}
-		
+
 		tiles = new Tile[rowCount][columnCount];
 		generate();
 		startMillis = System.currentTimeMillis();
@@ -86,39 +86,51 @@ public class Field {
 		return mineCount;
 	}
 
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
+
+	public void setColumnCount(int columnCount) {
+		this.columnCount = columnCount;
+	}
+
+	public void setMineCount(int mineCount) {
+		this.mineCount = mineCount;
+	}
+
 	public Tile getTile(int row, int column) {
 		return tiles[row][column];
 	}
-	
+
 	public GameState getState() {
 		return state;
 	}
-	
+
 	public void openTile(int row, int column) {
 		Tile tile = getTile(row, column);
 		if (tile.getState().equals(TileState.CLOSED)) {
 			tile.setState(TileState.OPEN);
 			openCount++;
-			
-			if(tile instanceof Mine) {
+
+			if (tile instanceof Mine) {
 				state = GameState.FAILED;
 				return;
 			}
-			
-			if(((Clue)tile).getValue() == 0) {
+
+			if (((Clue) tile).getValue() == 0) {
 				openNeighbourTiles(row, column);
-			}		
-			
-			if(isSolved()) {
+			}
+
+			if (isSolved()) {
 				state = GameState.SOLVED;
 			}
 		}
 	}
 
 	private boolean isSolved() {
-		return rowCount * columnCount - openCount == mineCount; 
+		return rowCount * columnCount - openCount == mineCount;
 	}
-	
+
 	private void openNeighbourTiles(int row, int column) {
 		for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
 			int actRow = row + rowOffset;
@@ -137,12 +149,12 @@ public class Field {
 		Tile tile = getTile(row, column);
 		if (tile.getState().equals(TileState.CLOSED)) {
 			tile.setState(TileState.MARKED);
-		}else if (tile.getState().equals(TileState.MARKED)) {
+		} else if (tile.getState().equals(TileState.MARKED)) {
 			tile.setState(TileState.CLOSED);
 		}
 	}
-	
+
 	public int getPlayingSeconds() {
-		return (int)((System.currentTimeMillis() - startMillis) / 1000);
+		return (int) ((System.currentTimeMillis() - startMillis) / 1000);
 	}
 }

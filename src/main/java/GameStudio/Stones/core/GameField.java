@@ -118,11 +118,18 @@ public class GameField  {
 			System.out.println("Name: "+System.getProperty("user.name"));
 			System.out.println("Time: "+getPlayingSeconds());
 			//UserScore score = new UserScore( System.getProperty("user.name"), getPlayingSeconds(), "Stones");
-			hall.addScore(System.getProperty("user.name"), getPlayingSeconds());
-			hall.addRating();
+			//hall.addScore(System.getProperty("user.name"), getPlayingSeconds());
+			//hall.addRating();
+			//hall.addComment();
+			//System.out.println(hall.ratingToString());
+			
 			//System.out.println(hall);
 			
 		}
+	}
+
+	public HallOfFameHibernate getHall() {
+		return hall;
 	}
 
 	private void showGameField() {

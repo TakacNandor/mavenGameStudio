@@ -22,26 +22,17 @@ import GameStudio.score.DBConnection;
 import GameStudio.score.HallOfFameORM;
 import GameStudio.score.UserScore;
 
-public class Main extends DBConnection {
+public class Main  {
 
-	/*
-	 * static final String URL = "jdbc:mysql://localhost/gamestudio"; static
-	 * final String USER = "root"; static final String PASSWORDD = "";
-	 */
-
+	
 	public static void main(String[] args) throws BeansException, Exception {
 
-
-		//ApplicationContext context = new lassPathXmlApplicationContext("spring-context.xml");
 		
-		new Studio().play();
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 		
-		//context.getBean(GameField.class).play();
-		//context.getBean(ConsoleUI.class).play();
-		
-		
-		
-
+		context.getBean(Studio.class).play();
+	
 	}
 
 }

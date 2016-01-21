@@ -41,6 +41,9 @@
 	<bean id="hallOfFameStones" class="GameStudio.score.HallOfFameHibernate">
 		<constructor-arg value="Stones" />
 	</bean>
+	<bean id="hallOfFameGues" class="GameStudio.score.HallOfFameHibernate">
+		<constructor-arg value="Gues Number" />
+	</bean>
 
 
 
@@ -50,10 +53,16 @@
 		<property name="hall" ref="hallOfFameStones" />
 	</bean>
 	
-	
-	<bean id="rating" class="GameStudio.score.Rating"
+	<bean id="guesConsole" class="GameStudio.GuestWhatIMean.GuesConsoleUI"
 		autowire="byType">
+		<property name="hall" ref="hallOfFameGues" />
+	</bean>
+
+
+	<bean id="rating" class="GameStudio.score.Rating" autowire="byType">
 	</bean>
 	
+	<bean id="studio" class="GameStudio.Main.Studio" autowire="byType">
+	</bean>
 
 </beans>
